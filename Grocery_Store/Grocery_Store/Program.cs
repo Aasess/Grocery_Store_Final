@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Grocery_Store.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Configure DbContext with SQL Server
+builder.Services.AddDbContext<GroceryDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

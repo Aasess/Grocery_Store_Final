@@ -189,6 +189,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Conestoga\\Level 4\\.NET-Final\\Grocery_Store_Final\\Grocery_Store\\Grocery_Store\\wwwroot\\images\\logo.jpg",
+      "PackagePath": "staticwebassets\\images\\logo.jpg"
+    },
+    {
+      "Id": "D:\\Conestoga\\Level 4\\.NET-Final\\Grocery_Store_Final\\Grocery_Store\\Grocery_Store\\wwwroot\\images\\noFoundIcon.png",
+      "PackagePath": "staticwebassets\\images\\noFoundIcon.png"
+    },
+    {
       "Id": "D:\\Conestoga\\Level 4\\.NET-Final\\Grocery_Store_Final\\Grocery_Store\\Grocery_Store\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

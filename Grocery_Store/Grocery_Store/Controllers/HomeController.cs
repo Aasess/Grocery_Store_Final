@@ -1,26 +1,33 @@
 using Grocery_Store.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Grocery_Store.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly GroceryDbContext _context;
+        public HomeController(GroceryDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            var items = _context.Items.Include(i => i.Category).ToList();
+            ViewBag.Items = items; 
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Detail(int id)
         {
-            return View();
+            var item = _context.Items.Include(i => i.Category).FirstOrDefault(i => i.Id == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return View(item);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

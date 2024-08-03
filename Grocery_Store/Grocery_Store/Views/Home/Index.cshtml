@@ -1,8 +1,42 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var items = ViewBag.Items as List<Item>;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-2">
+    <h1 class="display-5 text-center">Welcome To The Great Shopping Experience</h1>
+    
+    <div class="row mt-5">
+        @if (items != null && items.Any())
+        {
+            foreach (var item in items)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card">
+                        <a href="@Url.Action("Detail", "Home", new { id = item.Id })">
+                            <div class="d-flex justify-content-center">
+                                <img src="@item.Image" class="card-img-top img-fluid item-img-card" alt="@item.Name" onerror="this.onerror=null;this.src='/images/nofoundIcon.png';">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Name</h5>
+                                <p class="card-text">@item.Price.ToString("C")</p>
+                                <p class="card-text"><small class="text-muted">@item.Category.Name</small></p>
+                                <a href="#" class="btn btn-primary">
+                                    <i class="fas fa-cart-plus"></i> Add to Cart
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-warning" role="alert">
+                    No items found.
+                </div>
+            </div>
+        }
+    </div>
 </div>
