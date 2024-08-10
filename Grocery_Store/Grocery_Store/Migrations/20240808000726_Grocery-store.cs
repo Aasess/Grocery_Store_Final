@@ -7,7 +7,7 @@
 namespace Grocery_Store.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial001 : Migration
+    public partial class Grocerystore : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,6 +34,7 @@ namespace Grocery_Store.Migrations
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -59,12 +60,12 @@ namespace Grocery_Store.Migrations
 
             migrationBuilder.InsertData(
                 table: "Items",
-                columns: new[] { "Id", "CategoryId", "Image", "Name", "Price" },
+                columns: new[] { "Id", "CategoryId", "Description", "Image", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 1, "apple.jpg", "Apple", 1.00m },
-                    { 2, 2, "bread.jpg", "Bread", 1.50m },
-                    { 3, 3, "milk.jpg", "Milk", 0.99m }
+                    { 1, 1, "A fresh apple", "apple.jpg", "Apple", 1.00m },
+                    { 2, 2, "A fresh bread", "bread.jpg", "Bread", 1.50m },
+                    { 3, 3, "A fresh milk", "milk.jpg", "Milk", 0.99m }
                 });
 
             migrationBuilder.CreateIndex(
