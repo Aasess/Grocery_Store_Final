@@ -1,0 +1,100 @@
+﻿@model Grocery_Store.Models.Cart
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+            <div class="cart-heading-container p-4 mb-4">
+                <h1 class="display-4 font-weight-bold text-primary"><b>Your Shopping Cart</b></h1>
+                <p class="lead text-secondary">Everything you love, all in one place</p>
+                <i class="fas fa-shopping-cart fa-3x text-primary mt-3"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    @if (Model.Items.Any())
+    {
+        <div class="row">
+            <!-- Cart Items -->
+            <div class="col-lg-8">
+                <div class="table-responsive shadow-sm p-3 mb-5 bg-white rounded">
+                    <table class="table table-hover align-middle">
+                        <thead class="thead-light">
+                            <tr>
+                                <th colspan="2">Item</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cartItem in Model.Items)
+                            {
+                                <tr>
+                                    <td style="width: 100px;">
+                                        <img src="@cartItem.Item.Image" class="img-fluid rounded" alt="@cartItem.Item.Name" onerror="this.onerror=null;this.src='/images/nofoundIcon.png';">
+                                    </td>
+                                    <td>
+                                        <h5 class="font-weight-bold">@cartItem.Item.Name</h5>
+                                        <p class="text-muted small">@cartItem.Item.Description</p>
+                                    </td>
+                                    <td class="text-center font-weight-bold text-primary">@cartItem.Item.Price.ToString("C")</td>
+                                    <td class="text-center">
+                                        <input type="number" class="form-control text-center border-primary" value="@cartItem.Quantity" min="1" max="99" />
+                                    </td>
+                                    <td class="text-center font-weight-bold">$@(cartItem.Item.Price * cartItem.Quantity)</td>
+                                    <td class="text-center">
+                                        <a href="@Url.Action("RemoveFromCart", "Cart", new { id = cartItem.Item.Id })" class="text-danger">
+                                            <i class="fas fa-times fa-lg"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Cart Summary -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm p-3 mb-5 bg-white rounded">
+                    <div class="card-body">
+                        <h4 class="card-title font-weight-bold">Order Summary</h4>
+                        <hr />
+                        <div class="d-flex justify-content-between">
+                            <p class="font-weight-bold">Subtotal</p>
+                            <p>@Model.TotalPrice.ToString("C")</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="font-weight-bold">Tax (5%)</p>
+                            <p>$@(Model.TotalPrice * 0.05M)</p>
+                        </div>
+                        <hr />
+                        <div class="d-flex justify-content-between">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5>$@(Model.TotalPrice * 1.05M)</h5>
+                        </div>
+                        <a href="@Url.Action("Checkout", "Cart")" class="btn btn-primary btn-block mt-4 shadow-sm">
+                            <i class="fas fa-credit-card"></i> Proceed to Checkout
+                        </a>
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary btn-block mt-2 shadow-sm">
+                            <i class="fas fa-arrow-left"></i> Continue Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            <strong>Your cart is empty.</strong>
+        </div>
+        <div class="text-center">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-3 shadow-sm">
+                <i class="fas fa-shopping-cart"></i> Start Shopping
+            </a>
+        </div>
+    }
+<
